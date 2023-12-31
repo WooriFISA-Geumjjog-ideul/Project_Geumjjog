@@ -1,4 +1,8 @@
-package com.geumjjok.model.domain.entity;
+package com.geumjjok.like.model.entity;
+
+import com.geumjjok.member.model.entity.Member;
+
+import com.geumjjok.post.model.entity.Post;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
