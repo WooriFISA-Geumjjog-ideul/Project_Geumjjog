@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     @GetMapping("/login")
     public String home() {
-    	System.out.println("++++++++++++++");
-        return "index";	//WEB-INF/jsp/index.jsp
+    	System.out.println("login *** ");
+        return "member/login";	//WEB-INF/jsp/login.jsp
     }
     
     @GetMapping("/signup")
     public String signup() {
     	System.out.println("signup *** ");
-    	return "signup";	//WEB-INF/jsp/signup.jsp
+    	return "member/signup";	//WEB-INF/jsp/signup.jsp
     }
     
     @GetMapping("/list")
