@@ -3,10 +3,13 @@ package com.geumjjok.member.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.geumjjok.member.model.MemberDTO;
+import com.geumjjok.member.model.entity.Member;
 import com.geumjjok.member.model.service.MemberService;
 
 @RequestMapping("/member")
@@ -15,6 +18,13 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	//@FIXME: remove later - 유저 생성 테스트용
+	@PostMapping("/create")
+	public Member create(@RequestBody MemberDTO memberDTO) {
+		System.out.println("create");
+		return memberService.create(memberDTO);
+	}
 	
 	@PostMapping("/signup")
 	public String signup() {

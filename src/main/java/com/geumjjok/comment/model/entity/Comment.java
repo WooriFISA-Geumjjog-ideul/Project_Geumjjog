@@ -1,10 +1,18 @@
 package com.geumjjok.comment.model.entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.geumjjok.member.model.entity.Member;
 import com.geumjjok.post.model.entity.Post;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,21 +20,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
-@AllArgsConstructor
 @Getter
-@Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "comment")
 public class Comment {
+	
 	@Id
 	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,12 +44,13 @@ public class Comment {
 	@Column(name = "content", columnDefinition = "TEXT", nullable = false)
 	private String content;
 
-	@NonNull
 	@Column(name = "created_at")
-	private String createdAt;
+	@CreatedDate
+	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
-	private String updatedAt;
+	@LastModifiedDate
+	private LocalDateTime updatedAt;
 
 	@Column(name = "is_deleted", columnDefinition = "boolean default false")
 	private boolean isDeleted;
@@ -53,6 +62,33 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", nullable = false)
 	private Member memberId;
+	
+	@Builder
+	public Comment(@NonNull String content, Post postId, Member memberId) {
+		this.content = content;
+		this.postId = postId;
+		this.memberId = memberId;
+	}
+	
+	public String getCreatedAtAsString() {
+		return formatDateTime(this.createdAt);
+	}
+
+	public String getUpdatedAtAsString() {
+		return formatDateTime(this.updatedAt);
+	}
+
+	public String getMemberName(Member member) {
+		return member != null ? member.getName() : null;
+	}
+
+	private String formatDateTime(LocalDateTime dateTime) {
+		if (dateTime == null) {
+			return null;
+		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		return dateTime.format(formatter);
+	}
 
 	@Override
 	public String toString() {
