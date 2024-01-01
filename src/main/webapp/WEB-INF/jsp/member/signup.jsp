@@ -14,7 +14,7 @@
 <body>
 	<div class="main">
 		<div class="container a-container" id="a-container">
-			<form class="form" id="form-signup" method="post" action="">
+			<form class="form" id="form-signup" method="post" action="${root}/member/signup">
 				<h2 class="form_title title">회원가입</h2>
 				<input class="form__input" type="text" name="username" placeholder="이름">
 				<input class="form__input" type="password" name="userpw" placeholder="비밀번호">
@@ -33,9 +33,9 @@
 		</div>
 	</div>
 	<script src="main.js"></script>
-	<!-- <script>
+	<script>
       let isUseId = false;
-      document.querySelector("#username").addEventListener("keyup", function () {
+      document.querySelector("#memberName").addEventListener("keyup", function () {
     	 let userid = this.value;
     	 let resultDiv = document.querySelector("#idcheck-result");
     	 if(userid.length < 6 || userid.length > 16) {
@@ -43,7 +43,7 @@
     		 resultDiv.textContent = "아이디는 6자 이상 16자 이하 입니다.";
     		 isUseId = false;
     	 } else {
-    		 fetch("${root}/member/" + username)
+    		 fetch("${root}/member/" + memberName)
     		   .then(response => response.text())
     		   .then(data => {
 	    			 if(data == 0) {
@@ -60,17 +60,17 @@
     	 }
       });
       
-      document.querySelector("#btn-signup").addEventListener("click", function () {
-        if (!document.querySelector("#username").value) {
+      d/* ocument.querySelector("#btn-signup").addEventListener("click", function () {
+        if (!document.querySelector("#memberName").value) {
           alert("이름 입력하세요");
           return;
-        } else if (!document.querySelector("#userpw").value) {
+        } else if (!document.querySelector("#memberPw").value) {
           alert("비밀번호 입력하세요");
           return;
-        } else if (!document.querySelector("#usernickname").value) {
+        } else if (!document.querySelector("#memberNickname").value) {
           alert("닉네임 입력하세요");
           return;
-        } else if (!document.querySelector("#useremail").value) {
+        } else if (!document.querySelector("#memberEmail").value) {
           alert("이메일 입력하세요");
           return;
         } /* else if (!isUseId) {
@@ -81,7 +81,17 @@
           form.setAttribute("action", "${root}/member/signup");
           form.submit();
         }
-      }); -->
+      }); */
+      document.querySelector("#btn-signup").addEventListener("click", function (event) {
+    	    event.preventDefault(); // Prevent default form submission
+    	    
+    	    // Your validation logic
+    	    
+    	    // Dynamically set the form action and submit
+    	    let form = document.querySelector("#form-signup");
+    	    form.action = "${root}/member/signup";
+    	    form.submit();
+    	});
     </script>
 </body>
 </html>

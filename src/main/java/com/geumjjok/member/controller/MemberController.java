@@ -27,9 +27,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("/signup")
-	public String signup() {
+	public MemberDTO signup(@RequestBody MemberDTO memberDTO) {
 		System.out.println("signup");
-		return null;
+		return memberService.signup(memberDTO);
 	}
 
 	@GetMapping("/login")

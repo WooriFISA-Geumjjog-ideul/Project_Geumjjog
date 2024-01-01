@@ -15,8 +15,8 @@
 		<div class="container a-container" id="a-container">
 			<form class="form" id="loginForm" method="post" >
 				<h2 class="form_title title">금쪽이들</h2>
-				<input class="form__input" type="text" name="username" placeholder="이름">
-				<input class="form__input" type="password" name="userpw" placeholder="비밀번호">
+				<input class="form__input" type="text" name="memberName" placeholder="이름">
+				<input class="form__input" type="password" name="memberPw" placeholder="비밀번호">
 				<a onclick="alert(1)">비밀번호찾기</a>
 				<button class="form__button button submit">로그인</button>
 			</form>
