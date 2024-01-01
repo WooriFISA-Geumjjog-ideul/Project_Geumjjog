@@ -14,6 +14,8 @@ import lombok.ToString;
 public class LikeDTO {
 
 	private int likeId;
+	
+	private int postId;
 
 	private String createdAt;
 

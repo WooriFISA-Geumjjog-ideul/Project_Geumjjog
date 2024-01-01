@@ -19,7 +19,7 @@
 						class="form-select form-select-sm ms-5 me-1 w-50" id="skey"
 						name="key" aria-label="검색조건">
 						<option value="" selected>검색조건</option>
-						<option value="subject">제목</option>
+						<option value="title">제목</option>
 						<option value="userid">작성자</option>
 					</select>
 					<div class="input-group input-group-sm">
@@ -41,17 +41,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${!empty articles}">
-					<c:forEach var="article" items="${articles}">
+				<c:if test="${!empty posts}">
+					<c:forEach var="post" items="${posts}">
 						<tr class="text-center">
-							<th scope="row">${article.articleNo}</th>
+							<th scope="row">${post.postId}</th>
 							<td class="text-start"><a href="#"
-								class="article-title link-dark" data-no="${article.articleNo}"
+								class="post-title link-dark" data-no="${post.postId}"
 								style="text-decoration: none">
-									${article.subject} </a></td>
-							<td>${article.userName}</td>
-							<td>${article.hit}</td>
-							<td>${article.registerTime}</td>
+									${post.title} </a></td>
+							<td>${post.memberName}</td>
+							<td>${post.hit}</td>
+							<td>${post.createdAt}</td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -70,7 +70,7 @@
 	<input type="hidden" name="pgno" value="${pgno}"> <input
 		type="hidden" name="key" value="${key}"> <input type="hidden"
 		name="word" value="${word}"> <input type="hidden"
-		id="articleno" name="articleno" value="">
+		id="postid" name="postid" value="">
 </form>
 <script>
 	var sel = document.getElementById("skey");
@@ -83,10 +83,10 @@
 	if ("${word}" != "")
 		document.getElementById("sword").value = "${word}";
 
-	let titles = document.querySelectorAll(".article-title");
+	let titles = document.querySelectorAll(".post-title");
 	titles.forEach(function(title) {
 		title.addEventListener("click", function() {
-			document.querySelector("#articleno").value = this
+			document.querySelector("#postid").value = this
 					.getAttribute("data-no");
 			document.querySelector("#form-no-param").submit();
 		});
@@ -95,13 +95,13 @@
 	document.querySelector("#btn-mv-register").addEventListener("click",
 			function() {
 				let form = document.querySelector("#form-param");
-				form.setAttribute("action", "${root}/board/write");
+				form.setAttribute("action", "${root}/post/write");
 				form.submit();
 			});
 
 	document.querySelector("#btn-search").addEventListener("click", function() {
 		let form = document.querySelector("#form-search");
-		form.setAttribute("action", "${root}/board/list");
+		form.setAttribute("action", "${root}/post/list");
 		form.submit();
 	});
 
@@ -111,7 +111,7 @@
 			let form = document.querySelector("#form-param");
 			document.querySelector("#pgno").value = page.parentNode
 					.getAttribute("data-pg");
-			form.setAttribute("action", "${root}/board/list");
+			form.setAttribute("action", "${root}/post/list");
 			form.submit();
 		});
 	});
