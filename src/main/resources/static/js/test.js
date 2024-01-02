@@ -1,6 +1,6 @@
 /*
-    Designed by: SELECTO
-    Original image: https://dribbble.com/shots/5311359-Diprella-Login
+	Designed by: SELECTO
+	Original image: https://dribbble.com/shots/5311359-Diprella-Login
 */
 
 let switchCtn = document.querySelector("#switch-cnt");
@@ -16,27 +16,53 @@ let getButtons = (e) => e.preventDefault()
 
 let changeForm = (e) => {
 
-    switchCtn.classList.add("is-gx");
-    setTimeout(function(){
-        switchCtn.classList.remove("is-gx");
-    }, 1500)
+	switchCtn.classList.add("is-gx");
+	setTimeout(function() {
+		switchCtn.classList.remove("is-gx");
+	}, 1500)
 
-    switchCtn.classList.toggle("is-txr");
-    switchCircle[0].classList.toggle("is-txr");
-    switchCircle[1].classList.toggle("is-txr");
+	switchCtn.classList.toggle("is-txr");
+	switchCircle[0].classList.toggle("is-txr");
+	switchCircle[1].classList.toggle("is-txr");
 
-    switchC1.classList.toggle("is-hidden");
-    switchC2.classList.toggle("is-hidden");
-    aContainer.classList.toggle("is-txl");
-    bContainer.classList.toggle("is-txl");
-    bContainer.classList.toggle("is-z200");
+	switchC1.classList.toggle("is-hidden");
+	switchC2.classList.toggle("is-hidden");
+	aContainer.classList.toggle("is-txl");
+	bContainer.classList.toggle("is-txl");
+	bContainer.classList.toggle("is-z200");
+}
+
+let login = () => {
+	var name = document.getElementById('name').value;
+	var password = document.getElementById('password').value;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", '/member/login', true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			try {
+				var json = JSON.parse(xhr.responseText);
+				console.log(json.message);  // "Login Success"
+				window.location.href = "/list";
+			} catch (e) {
+				console.error("Parsing error:", e);
+			}
+		}
+	};
+
+	var data = JSON.stringify({ "name": name, "password": password });
+	xhr.send(data);
 }
 
 let mainF = (e) => {
-    for (var i = 0; i < allButtons.length; i++)
-        allButtons[i].addEventListener("click", getButtons );
-    for (var i = 0; i < switchBtn.length; i++)
-        switchBtn[i].addEventListener("click", changeForm)
+	for (var i = 0; i < allButtons.length; i++)
+		allButtons[i].addEventListener("click", getButtons);
+	for (var i = 0; i < switchBtn.length; i++)
+		switchBtn[i].addEventListener("click", changeForm);
+
+	document.getElementById('submitButton').addEventListener('click', login);
 }
 
 window.addEventListener("load", mainF);
