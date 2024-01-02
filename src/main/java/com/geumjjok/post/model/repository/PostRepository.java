@@ -9,5 +9,5 @@ import com.geumjjok.post.model.entity.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
-//	Optional<Post> findPostByIdAndIsDeletedIsFalse(int postId);
+	Optional<Post> findPostByPostIdAndIsDeletedIsFalse(int postId);
 }
