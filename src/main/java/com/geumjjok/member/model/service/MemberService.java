@@ -1,5 +1,7 @@
 package com.geumjjok.member.model.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,12 @@ public class MemberService {
 		return "";
 	}
 	
-	public String login() {
-		return "";
+	public Optional<Member> login(MemberDTO memberDTO) {
+		System.out.println(memberDTO.getName());
+		Optional<Member> member = memberRepository.findByName(memberDTO.getName());
+		System.out.println("memberService login");
+		System.out.println(member);
+		return member;
 	}
 	
 	public boolean nicknameCheck() {
