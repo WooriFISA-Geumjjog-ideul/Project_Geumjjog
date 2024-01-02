@@ -35,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
 @Getter
-//@DynamicUpdate
+@DynamicUpdate
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "post")
@@ -82,9 +82,9 @@ public class Post {
 		this.memberId = memberId;
 	}
 	
-//	public void updateIsDeleted() {
-//		this.isDeleted = true;
-//	}
+	public void updateIsDeleted() {
+		this.isDeleted = true;
+	}
 
 	public String getCreatedAtAsString() {
 		return formatDateTime(this.createdAt);
