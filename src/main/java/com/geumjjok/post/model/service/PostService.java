@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.geumjjok.member.model.entity.Member;
 import com.geumjjok.member.model.repository.MemberRepository;
@@ -44,11 +45,12 @@ public class PostService {
 		return convertToDto(postRepository.save(postDTO.toEntity(member)));
 	}
 
+	@Transactional
 	public void removePost(int postId) throws PostNotFoundException {
-		postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("존재하지 않는 게시글 ID 입니다: " + postId));
-//		postRepository.findPostByIdAndIsDeletedIsFalse(postId)
-//				.orElseThrow(() -> new PostNotFoundException("존재하지 않는 게시글 ID 입니다: " + postId));
-		postRepository.deleteById(postId);
+		Post post = postRepository.findPostByPostIdAndIsDeletedIsFalse(postId)
+				.orElseThrow(() -> new PostNotFoundException("존재하지 않는 게시글 ID 입니다: " + postId));
+		System.out.println(post);
+		post.updateIsDeleted();
 	}
 
 	public void modifyPost(int postId, PostDTO postDTO) throws PostNotFoundException {
