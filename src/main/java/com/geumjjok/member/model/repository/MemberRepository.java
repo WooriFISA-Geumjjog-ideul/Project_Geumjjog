@@ -7,5 +7,5 @@ import com.geumjjok.member.model.entity.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
-
+	Member findMemberByName(String name);
 }

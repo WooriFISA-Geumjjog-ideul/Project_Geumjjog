@@ -16,10 +16,10 @@
 		<div class="container a-container" id="a-container">
 			<form class="form" id="form-signup" method="post" action="${root}/member/signup">
 				<h2 class="form_title title">회원가입</h2>
-				<input class="form__input" type="text" name="username" placeholder="이름">
-				<input class="form__input" type="password" name="userpw" placeholder="비밀번호">
-				<input class="form__input" type="text" name="usernickname" placeholder="닉네임">
-				<input class="form__input" type="email" name="useremail" placeholder="이메일">
+				<input class="form__input" type="text" name="name" placeholder="이름">
+				<input class="form__input" type="password" name="password" placeholder="비밀번호">
+				<input class="form__input" type="text" name="nickName" placeholder="닉네임">
+				<input class="form__input" type="email" name="email" placeholder="이메일">
 				<button class="form__button button submit" id="btn-signup">회원가입</button>
 			</form>
 		</div>
@@ -60,7 +60,7 @@
     	 }
       });
       
-      d/* ocument.querySelector("#btn-signup").addEventListener("click", function () {
+      /* document.querySelector("#btn-signup").addEventListener("click", function () {
         if (!document.querySelector("#memberName").value) {
           alert("이름 입력하세요");
           return;
@@ -75,7 +75,7 @@
           return;
         } /* else if (!isUseId) {
           alert("아이디 확인!!");
-          return; */
+          return; 
         } else {
           let form = document.querySelector("#form-signup");
           form.setAttribute("action", "${root}/member/signup");
