@@ -17,6 +17,12 @@ public class HomeController {
     	return "member/signup";	//WEB-INF/jsp/signup.jsp
     }
     
+    @GetMapping("/findpassword")
+    public String findPassword() {
+    	System.out.println("findpassword *** ");
+    	return "member/findpassword";	//WEB-INF/jsp/signup.jsp
+    }
+    
     @GetMapping("/list")
     public String post() {
     	System.out.println("post *** ");
