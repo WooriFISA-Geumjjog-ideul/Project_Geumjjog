@@ -16,7 +16,6 @@ import com.geumjjok.member.model.MemberDTO;
 import com.geumjjok.member.model.entity.Member;
 import com.geumjjok.member.model.service.MemberService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +26,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+//	private MemberRepository memberRepository;
+//	
+//	public MemberController(MemberRepository member) {
+//		this.memberRepository = member;
+//	}
+//	
+	
 	//@FIXME: remove later - 유저 생성 테스트용
 	@PostMapping("/create")
 	public Member create(@RequestBody MemberDTO memberDTO) {
@@ -35,10 +41,21 @@ public class MemberController {
 	}
 	
 	@PostMapping("/signup")
-	public String signup() {
-		System.out.println("signup");
-		return null;
+	protected String signup(MemberDTO member) throws Exception{
+		try {
+			boolean result = memberService.signup(member);
+			if(result) {
+				return "회원가입되었습니다!";
+			}
+			else {
+				return "회원가입에 실패되었습니다";
+			}
+		}catch(Exception e) {
+			return " ";
+		}
+		
 	}
+	
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody MemberDTO memberDTO, HttpSession session, HttpServletResponse response) {
@@ -63,16 +80,16 @@ public class MemberController {
 		return false;
 	}
 
-	@GetMapping("/find-password")
-	public String passwordFind(@RequestParam String email) {
-		System.out.println("passwordFind");
-		return null;
-	}
-
 	@GetMapping("/email-check")
 	public boolean emailCheck(@RequestParam String email) {
 		System.out.println("emailCheck");
 		return false;
+	}
+
+	@GetMapping("/find-password")
+	public String passwordFind(@RequestParam String password) {
+		System.out.println("passwordFind");
+		return null;
 	}
 
 	@GetMapping("/logout")

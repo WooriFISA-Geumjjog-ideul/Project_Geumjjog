@@ -16,7 +16,6 @@ import lombok.ToString;
 @ToString
 @Builder
 public class MemberDTO {
-
 	private int memberId;
 
 	private String name;
@@ -34,8 +33,7 @@ public class MemberDTO {
 	private boolean isDeleted;
 
 	public Member toEntity() {
-		return Member.builder().name(this.name).nickName(this.nickName).password(this.password).email(this.email)
-				.build();
+		return Member.builder().name(this.name).nickName(this.nickName).password(this.password).email(this.email).build();
 	}
 
 }
