@@ -41,22 +41,20 @@ public class MemberController {
 	}
 	
 	@PostMapping("/signup")
-	protected String signup(MemberDTO member) throws Exception{
-		try {
-			boolean result = memberService.signup(member);
-			if(result) {
-				return "회원가입되었습니다!";
-			}
-			else {
-				return "회원가입에 실패되었습니다";
-			}
-		}catch(Exception e) {
-			return " ";
-		}
-		
-	}
+	   public ResponseEntity<?> signup(@RequestBody MemberDTO member) throws Exception{
+	      try {
+	           boolean result = memberService.signup(member);
+	           if(result) {
+	               return ResponseEntity.ok().body("{\"message\":\"회원가입에 성공하였습니다.\"}");
+	           } else {
+	               return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\":\"회원가입에 실패하였습니다.\"}");
+	           }
+	       } catch(Exception e) {
+	           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\":\"서버 오류가 발생하였습니다.\"}");
+	       }
+	      
+	   }
 	
-
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody MemberDTO memberDTO, HttpSession session, HttpServletResponse response) {
 	    System.out.println("memberController login");
@@ -64,10 +62,6 @@ public class MemberController {
 	    Member member = optMember.get();
 	    if(optMember.isPresent()) {
 	        session.setAttribute("member_info", member);
-//	        Cookie cookie = new Cookie("member_id", String.valueOf(member.getMemberId()));
-//	        cookie.setDomain("localhost");
-//	        cookie.setPath("/");
-//	        response.addCookie(cookie);
 	        return ResponseEntity.ok().body("{\"message\":\"Login Success\"}");
 	    } else {
 	        return new ResponseEntity<>("Login Failed", HttpStatus.UNAUTHORIZED);
