@@ -17,6 +17,9 @@ import com.geumjjok.comment.model.service.CommentService;
 import com.geumjjok.post.exception.PostNotFoundException;
 import com.geumjjok.post.model.PostDTO;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "/comment", description = "댓글 API")
 @RequestMapping("/comment")
 @RestController
 public class CommentController {

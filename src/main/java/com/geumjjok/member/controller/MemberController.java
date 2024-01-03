@@ -16,9 +16,12 @@ import com.geumjjok.member.model.MemberDTO;
 import com.geumjjok.member.model.entity.Member;
 import com.geumjjok.member.model.service.MemberService;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+@Tag(name = "/member", description = "회원 API")
 @RequestMapping("/member")
 @RestController
 public class MemberController {
@@ -34,6 +37,7 @@ public class MemberController {
 //	
 	
 	//@FIXME: remove later - 유저 생성 테스트용
+	@Hidden
 	@PostMapping("/create")
 	public Member create(@RequestBody MemberDTO memberDTO) {
 		System.out.println("create");
