@@ -7,21 +7,30 @@
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0">
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="css/test.css">
+<link rel="stylesheet" type="text/css" href="css/common-style.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap"
 	rel="stylesheet">
 </head>
-<title>Geumjjok</title>
+
+<title>금쪽같은 게시판</title>
 <body>
 	<div class="main">
 		<div class="container a-container" id="a-container">
 			<form class="form" id="loginForm" method="post">
-				<h2 class="form_title title">금쪽이들</h2>
+				<div class="waviy">
+					<span style="--i: 1">F</span> <span style="--i: 2">I</span> <span
+						style="--i: 3">S</span> <span style="--i: 4">A</span>
+				</div>
+				<br>
+				<br>
+				<br>
 				<input class="form__input" type="text" id="name" placeholder="이름">
 				<input class="form__input" type="password" id="password"
-					placeholder="비밀번호"> <a onclick="location.href='findpassword'">비밀번호찾기</a>
-				<button class="switch__button button switch-btn" onclick="login" type="button" id="submitButton">로그인</button>
+					placeholder="비밀번호"> <a
+					onclick="location.href='findpassword'">비밀번호찾기</a>
+				<button class="switch__button button switch-btn" onclick="login"
+					type="button" id="submitButton">로그인</button>
 			</form>
 		</div>
 		<div class="container b-container" id="b-container">
@@ -46,14 +55,14 @@
 			<div class="switch__circle"></div>
 			<div class="switch__circle switch__circle--t"></div>
 			<div class="switch__container" id="switch-c1">
-				<h2 class="switch__title title">환영합니다!</h2>
-				<p class="switch__description description">금쪽이들 : 금쪽같은내코드</p>
+				<h2 class="switch__title title">금쪽같은 게시판</h2>
+				<p class="switch__description description">by 금쪽이들</p>
 				<button class="switch__button button switch-btn"
 					onclick="location.href='signup'">회원가입</button>
 			</div>
 		</div>
 	</div>
-	<script src="/js/test.js"></script>
+	<script src="/js/login.js"></script>
 </body>
 
 </html>
