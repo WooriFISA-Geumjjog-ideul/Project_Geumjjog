@@ -14,6 +14,7 @@ import com.geumjjok.comment.model.entity.Comment;
 import com.geumjjok.like.model.entity.PostLike;
 import com.geumjjok.member.model.entity.Member;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -39,6 +40,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "post")
+@Hidden
 public class Post {
 
 	@Id
