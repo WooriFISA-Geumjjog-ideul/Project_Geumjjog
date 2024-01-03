@@ -12,6 +12,7 @@ import com.geumjjok.member.model.entity.Member;
 import com.geumjjok.member.model.repository.MemberRepository;
 import com.geumjjok.post.exception.PostNotFoundException;
 import com.geumjjok.post.model.PostDTO;
+import com.geumjjok.post.model.PostRequestDTO;
 import com.geumjjok.post.model.entity.Post;
 import com.geumjjok.post.model.repository.PostRepository;
 
@@ -34,15 +35,16 @@ public class PostService {
 		return posts.stream().map(this::convertToDto).collect(Collectors.toList());
 	}
 
-	public PostDTO findPostDetails(int postId) {
-		Optional<Post> optionalPost = postRepository.findById(postId);
-		return convertToDto(optionalPost.orElse(null));
+	public PostDTO findPostDetails(int postId) throws PostNotFoundException {
+		Post post = postRepository.findById(postId)
+				.orElseThrow(() -> new PostNotFoundException("존재하지 않는 게시글 ID 입니다: " + postId));
+		return convertToDto(post);
 	}
 
-	public PostDTO addPost(PostDTO postDTO) {
+	public PostDTO addPost(PostRequestDTO postRequestDTO) {
 		Optional<Member> optionalMember = memberRepository.findById(1); // @FIXME - to get memberId from session
 		Member member = optionalMember.orElse(null);
-		return convertToDto(postRepository.save(postDTO.toEntity(member)));
+		return convertToDto(postRepository.save(postRequestDTO.toEntity(member)));
 	}
 
 	@Transactional
@@ -53,11 +55,11 @@ public class PostService {
 		post.updateIsDeleted();
 	}
 
-	public void modifyPost(int postId, PostDTO postDTO) throws PostNotFoundException {
+	public void modifyPost(int postId, PostRequestDTO postRequestDTO) throws PostNotFoundException {
 		Post post = postRepository.findById(postId)
 				.orElseThrow(() -> new PostNotFoundException("존재하지 않는 게시글 ID 입니다: " + postId));
-		post.setTitle(postDTO.getTitle());
-		post.setContent(postDTO.getContent());
+		post.setTitle(postRequestDTO.getTitle());
+		post.setContent(postRequestDTO.getContent());
 		postRepository.save(post);
 	}
 }

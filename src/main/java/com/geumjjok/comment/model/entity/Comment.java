@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.geumjjok.member.model.entity.Member;
 import com.geumjjok.post.model.entity.Post;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -33,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "comment")
+@Hidden
 public class Comment {
 	
 	@Id
