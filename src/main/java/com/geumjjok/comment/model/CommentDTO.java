@@ -21,7 +21,7 @@ public class CommentDTO {
 
 	private int commentId;
 
-	private String memberName;
+	private String memberNickname;
 
 	private int postId;
 

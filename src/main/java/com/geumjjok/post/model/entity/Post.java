@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -71,8 +72,8 @@ public class Post {
 	@JoinColumn(name = "member_id", nullable = false)
 	private Member memberId;
 
-	@OneToMany(mappedBy = "postId")
-	private List<Comment> comments = new ArrayList<>();
+	@OneToMany(mappedBy = "postId", cascade = jakarta.persistence.CascadeType.REMOVE) // CascadeType.REMOVE 게시판 삭제 ->  댓글도 삭
+	private List<Comment> comments = new ArrayList<>();;
 
 	@OneToMany(mappedBy = "postId")
 	private List<PostLike> likes = new ArrayList<>();

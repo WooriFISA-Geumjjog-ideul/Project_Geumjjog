@@ -56,10 +56,11 @@ public class Comment {
 
 	@Column(name = "is_deleted", columnDefinition = "boolean default false")
 	private boolean isDeleted;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id", nullable = false)
-	private Post postId;
+	private Post postId; // Post 엔티티와의 관계 매핑
+	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", nullable = false)
