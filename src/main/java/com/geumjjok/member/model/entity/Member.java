@@ -76,15 +76,16 @@ public class Member {
 	@Column(name = "is_deleted", columnDefinition = "boolean default false")
 	private boolean isDeleted;
 
-	@OneToMany(mappedBy = "memberId")
-	private List<Post> posts = new ArrayList<>();
-
-	@OneToMany(mappedBy = "memberId")
-	private List<Comment> comments = new ArrayList<>();
-
-	@OneToMany(mappedBy = "memberId")
-	private List<PostLike> likes = new ArrayList<>();
-
+	/*
+	 * @OneToMany(mappedBy = "memberId") private List<Post> posts = new
+	 * ArrayList<>();
+	 * 
+	 * @OneToMany(mappedBy = "memberId") private List<Comment> comments = new
+	 * ArrayList<>();
+	 * 
+	 * @OneToMany(mappedBy = "memberId") private List<PostLike> likes = new
+	 * ArrayList<>();
+	 */
 	@Builder
 	public Member(int memberId, @NonNull String name, @NonNull String nickName, @NonNull String password,
 			@NonNull String email, LocalDateTime createdAt, LocalDateTime updatedAt, boolean isDeleted,
@@ -97,9 +98,6 @@ public class Member {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.isDeleted = isDeleted;
-		this.posts = posts;
-		this.comments = comments;
-		this.likes = likes;
 	}
 
 	@Override
