@@ -31,34 +31,30 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "post_like")
 @Hidden
 public class PostLike {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "like_id")
 	private int likeId;
 
-	@Column(name = "created_at")
 	@CreatedDate
 	private LocalDateTime createdAt;
 
-	@Column(name = "updated_at")
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
 
-	@Column(name = "is_deleted", columnDefinition = "boolean default false")
+	@Column(columnDefinition = "boolean default false")
 	private boolean isDeleted;
 	
 	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="post_id", nullable = false)
+	@JoinColumn(nullable = false)
 	private Post postId;
 
 	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="member_id", nullable = false)
+	@JoinColumn(nullable = false)
 	private Member memberId;
 
 	@Override

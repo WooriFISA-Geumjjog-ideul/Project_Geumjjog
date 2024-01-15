@@ -20,7 +20,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,46 +32,41 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "comment")
 @Hidden
 public class Comment {
-	
+
 	@Id
-	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int commentId;
 
 	@NonNull
-	@Column(name = "content", columnDefinition = "TEXT", nullable = false)
+	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 
-	@Column(name = "created_at")
 	@CreatedDate
 	private LocalDateTime createdAt;
 
-	@Column(name = "updated_at")
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
 
-	@Column(name = "is_deleted", columnDefinition = "boolean default false")
+	@Column(columnDefinition = "boolean default false")
 	private boolean isDeleted;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "post_id", nullable = false)
-	private Post postId; // Post 엔티티와의 관계 매핑
-	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id", nullable = false)
+	@JoinColumn(nullable = false)
+	private Post postId; // Post 엔티티와의 관계 매핑
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false)
 	private Member memberId;
-	
+
 	@Builder
 	public Comment(@NonNull String content, Post postId, Member memberId) {
 		this.content = content;
 		this.postId = postId;
 		this.memberId = memberId;
 	}
-	
+
 	public String getCreatedAtAsString() {
 		return formatDateTime(this.createdAt);
 	}

@@ -28,39 +28,22 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
-	
-//	@GetMapping("/list") // 게시글 목록 조회
-//	public ModelAndView postList() {
-//		ModelAndView mav = new ModelAndView();
-//	    List<PostDTO> posts = postService.findPostList();
-//	    mav.addObject("posts", posts);
-//	    mav.setViewName("post/list");
-//	    return mav;
-//	}
 
 	@GetMapping("/list") // 게시글 목록 조회
 	public List<PostDTO> postList() {
 		return postService.findPostList();
 	}
 
-//	@GetMapping("/detail/{postId}") // 게시글 상세 조회
-//	public PostDTO postDetails(@PathVariable int postId) {
-//		System.out.println("postDetails");
-//		return postService.findPostDetails(postId);
-//	}
-	
 	@GetMapping("/detail/{postId}") // 게시글 상세 조회
 	public ResponseEntity<?> postDetails(@PathVariable int postId) {
-	    System.out.println("postDetails");
-	    try {
-	        PostDTO postDTO = postService.findPostDetails(postId);
-	        return ResponseEntity.ok(postDTO);
-	    } catch (PostNotFoundException e) {
-	        e.printStackTrace();
-	        return ResponseEntity
-	                .status(HttpStatus.NOT_FOUND)
-	                .body(e.getMessage());
-	    }
+		System.out.println("postDetails");
+		try {
+			PostDTO postDTO = postService.findPostDetails(postId);
+			return ResponseEntity.ok(postDTO);
+		} catch (PostNotFoundException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
 	}
 
 	@PostMapping() // 게시글 등록

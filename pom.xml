@@ -87,6 +87,12 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.2.0</version>
         </dependency>
+        <!-- Model Mapper : DTO와 Entity 호환 API -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.4.0</version>
+		</dependency>
 	</dependencies>
 
 </project>
