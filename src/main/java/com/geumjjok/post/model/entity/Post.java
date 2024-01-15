@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,7 +25,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,13 +38,11 @@ import lombok.RequiredArgsConstructor;
 @DynamicUpdate
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "post")
 @Hidden
 public class Post {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "post_id")
 	private int postId;
 
 	@NonNull
@@ -57,23 +53,21 @@ public class Post {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 
-	@Column(name = "created_at")
 	@CreatedDate
 	private LocalDateTime createdAt;
 
-	@Column(name = "updated_at")
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
 
-	@Column(name = "is_deleted", columnDefinition = "boolean default false")
+	@Column(columnDefinition = "boolean default false")
 	private boolean isDeleted;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id", nullable = false)
+	@JoinColumn(nullable = false)
 	private Member memberId;
 
 	@OneToMany(mappedBy = "postId", cascade = jakarta.persistence.CascadeType.REMOVE) // CascadeType.REMOVE 게시판 삭제 ->  댓글도 삭
-	private List<Comment> comments = new ArrayList<>();;
+	private List<Comment> comments = new ArrayList<>();
 
 	@OneToMany(mappedBy = "postId")
 	private List<PostLike> likes = new ArrayList<>();
@@ -95,10 +89,6 @@ public class Post {
 
 	public String getUpdatedAtAsString() {
 		return formatDateTime(this.updatedAt);
-	}
-
-	public String getMemberName(Member member) {
-		return member != null ? member.getName() : null;
 	}
 
 	private String formatDateTime(LocalDateTime dateTime) {

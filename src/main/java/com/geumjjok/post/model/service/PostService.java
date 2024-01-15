@@ -14,6 +14,7 @@ import com.geumjjok.post.exception.PostNotFoundException;
 import com.geumjjok.post.model.PostDTO;
 import com.geumjjok.post.model.PostRequestDTO;
 import com.geumjjok.post.model.entity.Post;
+import com.geumjjok.post.model.mapper.PostMapper;
 import com.geumjjok.post.model.repository.PostRepository;
 
 @Service
@@ -26,7 +27,7 @@ public class PostService {
 
 	private PostDTO convertToDto(Post post) {
 		return PostDTO.builder().postId(post.getPostId()).title(post.getTitle()).content(post.getContent())
-				.memberName(post.getMemberName(post.getMemberId())).createdAt(post.getCreatedAtAsString())
+				.memberNickName(post.getMemberId().getNickName()).createdAt(post.getCreatedAtAsString())
 				.updatedAt(post.getUpdatedAtAsString()).isDeleted(post.isDeleted()).build();
 	}
 
@@ -38,7 +39,7 @@ public class PostService {
 	public PostDTO findPostDetails(int postId) throws PostNotFoundException {
 		Post post = postRepository.findById(postId)
 				.orElseThrow(() -> new PostNotFoundException("존재하지 않는 게시글 ID 입니다: " + postId));
-		return convertToDto(post);
+		return PostMapper.toPostDTO(post);
 	}
 
 	public PostDTO addPost(PostRequestDTO postRequestDTO) {
@@ -51,7 +52,6 @@ public class PostService {
 	public void removePost(int postId) throws PostNotFoundException {
 		Post post = postRepository.findPostByPostIdAndIsDeletedIsFalse(postId)
 				.orElseThrow(() -> new PostNotFoundException("존재하지 않는 게시글 ID 입니다: " + postId));
-		System.out.println(post);
 		post.updateIsDeleted();
 	}
 

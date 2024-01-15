@@ -1,21 +1,10 @@
 package com.geumjjok.member.model.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.geumjjok.comment.model.entity.Comment;
-import com.geumjjok.like.model.entity.PostLike;
-import com.geumjjok.post.model.entity.Post;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.Column;
@@ -24,29 +13,23 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "member")
 @Hidden
 public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "member_id")
 	private int memberId;
 
 	@NonNull
@@ -54,7 +37,7 @@ public class Member {
 	private String name;
 
 	@NonNull
-	@Column(name = "nick_name", length = 20, nullable = false)
+	@Column(length = 20, nullable = false)
 	private String nickName;
 
 	@NonNull
@@ -65,30 +48,18 @@ public class Member {
 	@Column(length = 50, nullable = false)
 	private String email;
 
-	@Column(name = "created_at")
 	@CreatedDate
 	private LocalDateTime createdAt;
 
-	@Column(name = "updated_at")
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
 
-	@Column(name = "is_deleted", columnDefinition = "boolean default false")
+	@Column(columnDefinition = "boolean default false")
 	private boolean isDeleted;
-
-	@OneToMany(mappedBy = "memberId")
-	private List<Post> posts = new ArrayList<>();
-
-	@OneToMany(mappedBy = "memberId")
-	private List<Comment> comments = new ArrayList<>();
-
-	@OneToMany(mappedBy = "memberId")
-	private List<PostLike> likes = new ArrayList<>();
 
 	@Builder
 	public Member(int memberId, @NonNull String name, @NonNull String nickName, @NonNull String password,
-			@NonNull String email, LocalDateTime createdAt, LocalDateTime updatedAt, boolean isDeleted,
-			List<Post> posts, List<Comment> comments, List<PostLike> likes) {
+			@NonNull String email, LocalDateTime createdAt, LocalDateTime updatedAt, boolean isDeleted) {
 		this.memberId = memberId;
 		this.name = name;
 		this.nickName = nickName;
@@ -97,9 +68,6 @@ public class Member {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.isDeleted = isDeleted;
-		this.posts = posts;
-		this.comments = comments;
-		this.likes = likes;
 	}
 
 	@Override
